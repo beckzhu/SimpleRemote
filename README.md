@@ -7,7 +7,7 @@
 
 ### 截图：
 
-![contraction](.\assets\contraction.png)
+![contraction](./master/assets/contraction.png)
 
 ![sshlink](.\assets\sshlink.png)
 
