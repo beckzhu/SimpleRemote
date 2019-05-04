@@ -1,0 +1,18 @@
+﻿<Controls:MetroWindow x:Class="SimpleRemote.Container.RemoteWinControl"
+         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+         xmlns:local="clr-namespace:SimpleRemote.Container"
+         Title="远程桌面连接" Height="768" Width="1024"
+         WindowStartupLocation="CenterScreen" MinWidth="500" MinHeight="500"
+         GlowBrush="{DynamicResource AccentColorBrush}"
+         ShowDialogsOverTitleBar="False" Closed="MetroWindow_Closed" Loaded="MetroWindow_Loaded" >
+    <Grid x:Name="Grid">
+        <StackPanel x:Name="Panel_Animation" Margin="0,200" VerticalAlignment="Center" Visibility="Collapsed">
+            <TextBlock TextWrapping="Wrap" Text="正在连接，请稍后" FontSize="18" Height="30" HorizontalAlignment="Center"/>
+            <mah:MetroProgressBar IsIndeterminate="True"/>
+        </StackPanel>
+        <Button x:Name="Button_ExitFull" Content="退出全屏" HorizontalAlignment="Center" VerticalAlignment="Center" Width="151" Height="45.24" Visibility="Collapsed" Click="Button_ExitFull_Click"/>
+    </Grid>
+</Controls:MetroWindow>

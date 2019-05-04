@@ -1,0 +1,29 @@
+﻿<Controls:MetroWindow   xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:dragablz="clr-namespace:Dragablz"
+                        x:Class="SimpleRemote.MainWindow"
+                        WindowStartupLocation="CenterScreen"
+                        ShowDialogsOverTitleBar="False" Width="1000" Height="800"
+                        GlowBrush="{DynamicResource AccentColorBrush}"  FontFamily="Microsoft YaHei UI"
+                        Closed="MetroWindow_Closed" MinWidth="800" MinHeight="600"
+                        Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <ContextMenu x:Key="Menu_NotifyIcon" MinWidth="160" HasDropShadow="False" FontFamily="Microsoft YaHei UI">
+            <MenuItem Header="退出"/>
+        </ContextMenu>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+        </DataTemplate>
+    </Controls:MetroWindow.IconTemplate>
+
+    <Grid x:Name="Grid_Main">
+        <dragablz:TabablzControl x:Name="MainTabControl" x:FieldModifier="public" Margin="0,-30,0,0" 
+                                 ConsolidateOrphanedItems="True" FixedHeaderCount="1" 
+                                 FontSize="12" ShowDefaultCloseButton="True">
+            <TabItem x:Name="TabItem_Home" Header="主页"/>
+        </dragablz:TabablzControl>
+    </Grid>
+</Controls:MetroWindow>

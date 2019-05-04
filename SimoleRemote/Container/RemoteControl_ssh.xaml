@@ -1,0 +1,23 @@
+﻿<modes:BaseRemoteControl
+             xmlns:modes="clr-namespace:SimpleRemote.Modes"
+             x:Class="SimpleRemote.Container.RemoteControl_ssh"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:form="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:local="clr-namespace:SimpleRemote.Container"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="Grid_Control">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <WindowsFormsHost  x:Name="FormsHost" Background="{x:Null}" Grid.RowSpan="3">
+            <form:UserControl x:Name="FormsControl" Dock="Fill" SizeChanged="FormsControl_SizeChanged"/>
+        </WindowsFormsHost>
+
+    </Grid>
+</modes:BaseRemoteControl>

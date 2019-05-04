@@ -1,0 +1,122 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:modes="clr-namespace:SimpleRemote.Modes"
+             x:Class="SimpleRemote.Container.Home_Remote_ssh"
+             mc:Ignorable="d" d:DesignHeight="450">
+             
+    <Grid x:Name="Grid_ssh">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="首   选：" FontSize="14" VerticalAlignment="Center" />
+        <ComboBox x:Name="ComboBox_OpenMode" Grid.Column="2" Grid.Row="1" FontSize="14" SelectedIndex="{Binding Path=OpenMode,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="使用选项卡打开"/>
+            <ComboBoxItem Content="使用选项卡(后台)打开"/>
+            <ComboBoxItem Content="使用外部打开"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="分辨率：" VerticalAlignment="Center" FontSize="14" />
+        <ComboBox x:Name="ComboBox_DeskTopSize" Grid.Column="2" Grid.Row="3" FontSize="14" SelectedIndex="{Binding Path=SizeIndex,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="自适应分辨率"/>
+            <ComboBoxItem Content="全屏"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Text="光   标：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox x:Name="SSH_ComboBox_Cursor" Grid.Column="2" Grid.Row="5" FontSize="14" VerticalAlignment="Center" SelectedIndex="{Binding Path=Cursor,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="显示块"/>
+            <ComboBoxItem Content="下划线"/>
+            <ComboBoxItem Content="垂直线"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="字   体：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox x:Name="SSH_ComboBox_FontName" Grid.Column="2" Grid.Row="7" FontSize="14" VerticalAlignment="Center" Margin="0,0,120,0">
+            <ComboBoxItem Content="使用默认设置"/>
+        </ComboBox>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,70,0" Grid.Row="7" FontSize="14" TextWrapping="Wrap" Text="大小：" VerticalAlignment="Center" />
+        <ComboBox x:Name="SSH_ComboBox_FontSize" Grid.Column="2" HorizontalAlignment="Right" Margin="205,0,0,0" Grid.Row="7" FontSize="14" Width="70" SelectedIndex="{Binding Path=FontSize,Mode=TwoWay}" >
+            <ComboBoxItem Content="默认"/>
+            <ComboBoxItem Content="1" Visibility="Collapsed"/>
+            <ComboBoxItem Content="2" Visibility="Collapsed"/>
+            <ComboBoxItem Content="3" Visibility="Collapsed"/>
+            <ComboBoxItem Content="4" Visibility="Collapsed"/>
+            <ComboBoxItem Content="5" Visibility="Collapsed"/>
+            <ComboBoxItem Content="6" Visibility="Collapsed"/>
+            <ComboBoxItem Content="7" Visibility="Collapsed"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="9" TextWrapping="Wrap" Text="字符集：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox x:Name="SSH_ComboBox_Character" Grid.Column="2" Grid.Row="9" FontSize="14" VerticalAlignment="Center">
+            <ComboBoxItem Content="使用默认设置"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="11" TextWrapping="Wrap" Text="回退键：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox x:Name="SSH_ComboBox_Backspace" Grid.Column="2" Grid.Row="11" FontSize="14" VerticalAlignment="Center" SelectedIndex="{Binding Path=Fallbackkeys,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="Backspace"/>
+            <ComboBoxItem Content="Delete"/>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="13" TextWrapping="Wrap" Text="鼠标动作：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox x:Name="SSH_ComboBox_MouseAction" Grid.Column="2" Grid.Row="13" FontSize="14" VerticalAlignment="Center" SelectedIndex="{Binding Path=MouseAction,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="混合模式 (中键扩展，右键粘贴)"/>
+            <ComboBoxItem Content="xterm (右键扩展，中键粘贴)"/>
+            <ComboBoxItem Content="Windows (中键扩展，右键弹出菜单)"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="15" TextWrapping="Wrap" Text="配色方案：" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox  x:Name="SSH_ComboBox_Color" Grid.Column="2" Grid.Row="15" FontSize="14" VerticalAlignment="Center">
+            <ComboBoxItem Content="使用默认设置"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="17" TextWrapping="Wrap" Text="Home和End键：" FontSize="14" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="SSH_ComboBox_HomeAndEnd" Grid.Column="2" Grid.Row="17" FontSize="14" VerticalAlignment="Center" Margin="36,0,0,0" SelectedIndex="{Binding Path=HomeAndEnd,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="标准"/>
+            <ComboBoxItem Content="rxvt"/>
+        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="19" TextWrapping="Wrap" Text="Fn  和 小 键 盘：" FontSize="14" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="SSH_ComboBox_FnAndKeypad" Grid.Column="2" Grid.Row="19" FontSize="14" VerticalAlignment="Center" Margin="36,0,0,0" SelectedIndex="{Binding Path=FnAndKeypad,Mode=TwoWay}">
+            <ComboBoxItem Content="使用默认设置"/>
+            <ComboBoxItem Content="ESC[n~"/>
+            <ComboBoxItem Content="Linux"/>
+            <ComboBoxItem Content="Xterm R6"/>
+            <ComboBoxItem Content="VT400"/>
+            <ComboBoxItem Content="VT100+"/>
+            <ComboBoxItem Content="SCO"/>
+        </ComboBox>
+        <CheckBox x:Name="SSH_CR" Grid.Column="1" Grid.Row="21" Content="在每个LF字符后增加CR" Grid.ColumnSpan="2" IsChecked="{Binding Path=LFImpliesCR,Mode=TwoWay}" IsThreeState="True"/>
+        <CheckBox x:Name="SSH_LF" Grid.Column="2" Grid.Row="21" Content="在每个CR字符后增加LF" Margin="101,0,0,0" IsChecked="{Binding Path=CRImpliesLF,Mode=TwoWay}" IsThreeState="True"/>
+        <CheckBox x:Name="SSH_CJK" Grid.Column="1" Grid.Row="23" Content="将不确定字符处理为CJK" Grid.ColumnSpan="2" IsChecked="{Binding Path=CJKAmbigWide,Mode=TwoWay}" IsThreeState="True"/>
+        <CheckBox x:Name="SSH_Cyrillic" Grid.Column="2" Grid.Row="23" Content="CapsLock用于Cyrillic切换" Margin="101,0,0,0" IsChecked="{Binding Path=CapsLockCyr,Mode=TwoWay}" IsThreeState="True"/>
+    </Grid>
+</UserControl>

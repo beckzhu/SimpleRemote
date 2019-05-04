@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="SimpleRemote.Container.MessageDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleRemote.Container"
+             mc:Ignorable="d" Background="#B4000000"
+              d:DesignHeight="600" d:DesignWidth="800" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Background="White" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition x:Name="Row_Dialog" Height="Auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="Text_Title" Margin="0,10,26,8" FontSize="26" Grid.Column="1" VerticalAlignment="Center" />
+            <TextBlock x:Name="Text_Message" Margin="0,8,0,10" FontSize="16" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+            
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Grid.Row="2" Width="Auto" VerticalAlignment="Center">
+                <Button x:Name="Button_Ok" Content="是" Margin="0,0,5,0" Grid.Row="2" Width="80" Height="35" Grid.Column="1" HorizontalAlignment="Right" 
+                    Style="{StaticResource SquareButtonStyle}" Visibility="Collapsed" Click="Button_Click"/>
+                <Button x:Name="Button_No" Content="否" Margin="0,0,5,0" Grid.Row="2" Width="80" Height="35" Grid.Column="1" HorizontalAlignment="Right" 
+                    Style="{StaticResource SquareButtonStyle}" Visibility="Collapsed"  Click="Button_Click"/>
+                <Button x:Name="Button_Cancel" Content="取消" Margin="0,0,5,0" Grid.Row="2" Width="80" Height="35" Grid.Column="1" HorizontalAlignment="Right" 
+                    Style="{StaticResource SquareButtonStyle}" Visibility="Collapsed"  Click="Button_Click"/>
+            </WrapPanel>
+            <TextBlock x:Name="Text_Timer" Grid.Column="1" HorizontalAlignment="Right" Margin="0,8,0,8" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Width="26" Height="26" Visibility="Collapsed"/>
+        </Grid>
+    </Grid>
+</UserControl>
