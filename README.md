@@ -7,8 +7,8 @@
 
 ### 截图：
 
-![contraction](./master/assets/contraction.png)
+![contraction](https://github.com/beckzhu/SimpleRemote/blob/master/assets/contraction.png?raw=true)
 
-![sshlink](.\assets\sshlink.png)
+![sshlink](https://github.com/beckzhu/SimpleRemote/blob/master/assets/externalwindow.png?raw=true)
 
-![externalwindow](.\assets\externalwindow.png)
+![externalwindow](https://github.com/beckzhu/SimpleRemote/blob/master/assets/sshlink.png?raw=true)
