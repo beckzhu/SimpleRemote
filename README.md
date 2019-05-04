@@ -7,8 +7,8 @@
 
 ### 截图：
 
-![contraction](D:\编程开发\Github\SimpleRemote\assets\contraction.png)
+![contraction](.\assets\contraction.png)
 
-![sshlink](D:\编程开发\Github\SimpleRemote\assets\sshlink.png)
+![sshlink](.\assets\sshlink.png)
 
-![externalwindow](D:\编程开发\Github\SimpleRemote\assets\externalwindow.png)
+![externalwindow](.\assets\externalwindow.png)
