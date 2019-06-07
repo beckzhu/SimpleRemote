@@ -1,8 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    mc:Ignorable="options">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    mc:Ignorable="options">
 
     <Color x:Key="HighlightColor">#FF1377A7</Color>
 
@@ -17,38 +18,102 @@
     <Color x:Key="AccentColor4">#331BA1E2</Color>
 
     <!--  re-set brushes too  -->
-    <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{StaticResource AccentBaseColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource AccentColor2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentColorBrush3" Color="{StaticResource AccentColor3}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentColorBrush4" Color="{StaticResource AccentColor4}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="HighlightBrush"
+        options:Freeze="True"
+        Color="{StaticResource HighlightColor}" />
+    <SolidColorBrush
+        x:Key="AccentBaseColorBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentBaseColor}" />
+    <SolidColorBrush
+        x:Key="AccentColorBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
+    <SolidColorBrush
+        x:Key="AccentColorBrush2"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor2}" />
+    <SolidColorBrush
+        x:Key="AccentColorBrush3"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor3}" />
+    <SolidColorBrush
+        x:Key="AccentColorBrush4"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor4}" />
 
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="WindowTitleColorBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
 
-    <LinearGradientBrush x:Key="ProgressBrush" StartPoint="1.002,0.5" EndPoint="0.001,0.5" options:Freeze="True">
+    <LinearGradientBrush x:Key="ProgressBrush" options:Freeze="True" StartPoint="1.002,0.5" EndPoint="0.001,0.5">
         <GradientStop Offset="0" Color="{StaticResource HighlightColor}" />
         <GradientStop Offset="1" Color="{StaticResource AccentColor3}" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource AccentColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="RightArrowFill" Color="{StaticResource AccentColor}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="CheckmarkFill"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
+    <SolidColorBrush
+        x:Key="RightArrowFill"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
 
     <Color x:Key="IdealForegroundColor">White</Color>
-    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Opacity="0.4" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="IdealForegroundColorBrush"
+        options:Freeze="True"
+        Color="{StaticResource IdealForegroundColor}" />
+    <SolidColorBrush
+        x:Key="IdealForegroundDisabledBrush"
+        options:Freeze="True"
+        Opacity="0.4"
+        Color="{StaticResource IdealForegroundColor}" />
+    <SolidColorBrush
+        x:Key="AccentSelectedColorBrush"
+        options:Freeze="True"
+        Color="{StaticResource IdealForegroundColor}" />
 
     <!--  DataGrid brushes  -->
 
-    <SolidColorBrush x:Key="MetroDataGrid.HighlightBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MetroDataGrid.HighlightTextBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MetroDataGrid.MouseOverHighlightBrush" Color="{StaticResource AccentColor3}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MetroDataGrid.FocusBorderBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MetroDataGrid.InactiveSelectionHighlightBrush" Color="{StaticResource AccentColor2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MetroDataGrid.InactiveSelectionHighlightTextBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.HighlightBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.HighlightTextBrush"
+        options:Freeze="True"
+        Color="{StaticResource IdealForegroundColor}" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.MouseOverHighlightBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor3}" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.FocusBorderBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.InactiveSelectionHighlightBrush"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor2}" />
+    <SolidColorBrush
+        x:Key="MetroDataGrid.InactiveSelectionHighlightTextBrush"
+        options:Freeze="True"
+        Color="{StaticResource IdealForegroundColor}" />
 
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10" Color="{StaticResource AccentColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10" Color="{StaticResource AccentColor2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
+    <SolidColorBrush
+        x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor}" />
+    <SolidColorBrush
+        x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10"
+        options:Freeze="True"
+        Color="{StaticResource AccentColor2}" />
+    <SolidColorBrush
+        x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10"
+        options:Freeze="True"
+        Color="{StaticResource IdealForegroundColor}" />
 </ResourceDictionary>

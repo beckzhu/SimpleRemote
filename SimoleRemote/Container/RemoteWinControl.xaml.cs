@@ -1,9 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using SimpleRemote.Bll;
+using SimpleRemote.Core;
 using SimpleRemote.Modes;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +26,7 @@ namespace SimpleRemote.Container
         {
             InitializeComponent();
             _fullScreenWindow = new FullScreenWindow();
+            _fullScreenWindow.ButtonClick = Button_ConnectBar_Click;
             _fullScreenWindow.Closed += (sender, e) =>
             {
                 _fullScreen = false;
@@ -44,6 +43,7 @@ namespace SimpleRemote.Container
         {
             Close();
         }
+
         public void Jump()
         {
             Activate();
@@ -62,21 +62,17 @@ namespace SimpleRemote.Container
             try
             {
                 Show();
-                FinalItemSetting finalItemSetting = null;
                 if (linkSettings.Type == (int)RemoteType.rdp)
                 {
                     _remoteControl = new RemoteControl_rdp(this);
-                    finalItemSetting = new FinalItemSetting_rdp((DbItemSetting_rdp)itemSetting);
                 }
                 if (linkSettings.Type == (int)RemoteType.ssh)
                 {
                     _remoteControl = new RemoteControl_ssh(this);
-                    finalItemSetting = new FinalItemSetting_ssh((DbItemSetting_ssh)itemSetting);
                 }
                 if (linkSettings.Type == (int)RemoteType.telnet)
                 {
                     _remoteControl = new RemoteControl_telnet(this);
-                    finalItemSetting = new FinalItemSetting_telnet((DbItemSetting_telnet)itemSetting);
                 }
                 if (_remoteControl == null)
                 {
@@ -91,9 +87,10 @@ namespace SimpleRemote.Container
                 _remoteControl.OnNonfatal = OnNonfatal;
                 _remoteControl.Closed = Remove;
                 _remoteControl.FullScreen = FullScreen;
+                _remoteControl.MouseMoveProc = MouseMoveProc;
 
-                _remoteControl.Connect(linkSettings, finalItemSetting);
-                _startFullScreen = finalItemSetting.FullScreen;
+                _remoteControl.Connect(linkSettings, itemSetting.GetLastSetting());
+                _startFullScreen = itemSetting.GetIsFullscreen();
             }
             catch (Exception e)
             {
@@ -128,6 +125,7 @@ namespace SimpleRemote.Container
             _remoteControl.GoFullScreen(state);
             return true;
         }
+
         /// <summary>
         /// 远程桌面连接成功
         /// </summary>
@@ -158,6 +156,7 @@ namespace SimpleRemote.Container
                 };
             }
         }
+
         /// <summary>
         /// 远程桌面发生非致命错误
         /// </summary>
@@ -168,6 +167,7 @@ namespace SimpleRemote.Container
             else MessageDialog.Show(this, title, errorText, MessageDialog.MB_OK);
             if (_remoteControl != null) _remoteControl.Visibility = Visibility.Visible;
         }
+
         /// <summary>
         /// 远程桌面发生致命错误
         /// </summary>
@@ -202,7 +202,16 @@ namespace SimpleRemote.Container
                 _itemRemoteLink.ExternalWindowWidth = mainWindow.Width == Width ? 0 : Width;
                 _itemRemoteLink.ExternalWindowHeight = mainWindow.Height == Height ? 0 : Height;
             }
-            Database.Update(_itemRemoteLink.Id, _itemRemoteLink);
+            DatabaseServices.Update(_itemRemoteLink.Id, _itemRemoteLink);
+        }
+
+        /// <summary>
+        /// 在远程桌面下，鼠标移动
+        /// </summary>
+        private void MouseMoveProc(int x, int y)
+        {
+            if (!_fullScreen) return;
+            _fullScreenWindow.MouseMoveProc(x, y);
         }
 
         private void WindowButtonCommands_MaxButtonClick(object sender, System.ComponentModel.CancelEventArgs e)
@@ -217,5 +226,23 @@ namespace SimpleRemote.Container
             }
         }
 
+        private void Button_ConnectBar_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null) return;
+            if (button.Name == "PART_Close")
+            {
+                _fullScreenWindow.Close();
+                Close();
+            }
+            if (button.Name == "PART_Resize")
+            {
+                FullScreen(false);
+            }
+            if (button.Name == "PART_Min")
+            {
+                _fullScreenWindow.WindowState = WindowState.Minimized;
+            }
+        }
     }
 }

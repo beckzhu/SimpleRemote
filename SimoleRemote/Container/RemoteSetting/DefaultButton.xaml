@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="SimpleRemote.Container.RemoteSetting.DefaultButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="26">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Button
+            x:Name="PART_Reset"
+            x:FieldModifier="public"
+            Content="重置设置"
+            FontSize="14"
+            Style="{StaticResource MetroFlatButton}" />
+        <Button
+            x:Name="PART_Default"
+            Grid.Column="2"
+            x:FieldModifier="public"
+            Content="设置为默认"
+            FontSize="14"
+            Style="{StaticResource MetroFlatButton}" />
+    </Grid>
+</UserControl>

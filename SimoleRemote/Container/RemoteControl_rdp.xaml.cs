@@ -4,10 +4,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using AxMSTSCLib;
 using MSTSCLib;
-using SimpleRemote.Bll;
-using SimpleRemote.DllLibrary;
+using SimpleRemote.Core;
+using SimpleRemote.Native;
 using SimpleRemote.Modes;
 
 namespace SimpleRemote.Container
@@ -17,18 +18,22 @@ namespace SimpleRemote.Container
     /// </summary>
     public partial class RemoteControl_rdp : BaseRemoteControl
     {
-        public AxMsRdpClient7NotSafeForScripting MsRdpClient7;
-        public AxMsRdpClient9NotSafeForScripting MsRdpClient9;
+        private AxMsRdpClient7NotSafeForScripting MsRdpClient7;
+        private AxMsRdpClient9NotSafeForScripting MsRdpClient9;
+        private IMsRdpClientNonScriptable5 MsRdpClientOcx;
+
         private IntPtr _oldRdpClientWinProc;
         private User32.WindowFunc _winRdpClientProc;
         private IntPtr _oldInRdpClientWinProc;
         private User32.WindowFunc _winInRdpClientProc;
+        private IntPtr _iHWindowHwnd;
+        private IntPtr _topWindowHwnd;
 
         public RemoteControl_rdp(ContentControl contentControl)
             : base(contentControl)
         {
             InitializeComponent();
-            if (Common.OSVersion <= 6.1f)
+            if (CommonServices.OSVersion <= 6.1f)
                 MsRdpClient7 = new AxMsRdpClient7NotSafeForScripting();
             else
                 MsRdpClient9 = new AxMsRdpClient9NotSafeForScripting();
@@ -66,9 +71,11 @@ namespace SimpleRemote.Container
             _winInRdpClientProc = WinInRdpClientProc;
         }
 
-        public override void Connect(DbItemRemoteLink linkSettings, FinalItemSetting finalItemSetting)
+        public override void Connect(DbItemRemoteLink linkSettings, DbItemSetting lastSetting)
         {
-            FinalItemSetting_rdp finalRemote = (FinalItemSetting_rdp)finalItemSetting;
+            DbItemSettingRdp lastSettingRdp = lastSetting as DbItemSettingRdp;
+            if (lastSettingRdp == null) return;
+            
             //分离服务器地址和端口
             string[] addr = linkSettings.Server.Split(':');
             int port = 3389;
@@ -82,9 +89,14 @@ namespace SimpleRemote.Container
                 MsRdpClient7.UserName = linkSettings.UserName;
                 MsRdpClient7.AdvancedSettings2.ClearTextPassword = linkSettings.Password;
                 MsRdpClient7.AdvancedSettings2.RDPPort = port;
-                var ocx = (IMsRdpClientNonScriptable5)MsRdpClient7.GetOcx();
-                ocx.PromptForCredentials = false;//凭据提示对话框
-                ocx.AllowPromptingForCredentials = true;//显示密码输入框
+                MsRdpClientOcx = (IMsRdpClientNonScriptable5)MsRdpClient7.GetOcx();
+                MsRdpClientOcx.PromptForCredentials = false;//凭据提示对话框
+                MsRdpClientOcx.AllowPromptingForCredentials = true;//显示密码输入框
+                MsRdpClientOcx.DisableConnectionBar = true;//禁用连接栏
+
+                //将窗口句柄设置或检索为控件显示的任何对话框的父窗口
+                var parentHwnd = CommonServices.HWNDtoRemotableHandle(new WindowInteropHelper(Window.GetWindow(this)).Handle);
+                MsRdpClientOcx.set_UIParentWindowHandle(ref parentHwnd);
 
                 MsRdpClient7.AdvancedSettings.BitmapPeristence = 1;//启用位图缓存
                 MsRdpClient7.AdvancedSettings.Compress = 1;//启用压缩
@@ -95,40 +107,42 @@ namespace SimpleRemote.Container
                 MsRdpClient7.AdvancedSettings7.EnableCredSspSupport = true;//指定是否为此连接启用凭据安全服务提供程序
 
                 //分辨率
-                if (finalItemSetting.DesktopSize.Width <= 0 || finalItemSetting.DesktopSize.Height <= 0)
+                if (lastSettingRdp.SizeIndex == DbItemSetting.DESKSIZE_AUTO)//自适应分辨率
                 {
                     Window windows = Window.GetWindow(this);
                     MsRdpClient7.DesktopWidth = (int)windows.Width - 4;
                     MsRdpClient7.DesktopHeight = (int)windows.Height - 34;
                 }
-                else
+                else 
                 {
-                    MsRdpClient7.DesktopWidth = (int)finalItemSetting.DesktopSize.Width;
-                    MsRdpClient7.DesktopHeight = (int)finalItemSetting.DesktopSize.Height;
+                    var size = lastSettingRdp.GetDeskTopSize();
+                    MsRdpClient7.DesktopWidth = (int)size.Width;
+                    MsRdpClient7.DesktopHeight = (int)size.Height;
                 }
+
                 //性能选项
-                if (finalRemote.Performance != DbItemSetting_rdp.CONNECTION_TYPE_AUTO)
-                    MsRdpClient7.AdvancedSettings8.NetworkConnectionType = (uint)finalRemote.Performance;
+                if (lastSettingRdp.Performance != DbItemSettingRdp.CONNECTION_TYPE_AUTO)
+                    MsRdpClient7.AdvancedSettings8.NetworkConnectionType = (uint)lastSettingRdp.Performance;
                 //颜色深度
-                switch (finalRemote.ColorDepthMode)
+                switch (lastSettingRdp.ColorDepthMode)
                 {
-                    case DbItemSetting_rdp.COLOR_15BPP: MsRdpClient7.ColorDepth = 15; break;
-                    case DbItemSetting_rdp.COLOR_16BPP: MsRdpClient7.ColorDepth = 16; break;
-                    case DbItemSetting_rdp.COLOR_24BPP: MsRdpClient7.ColorDepth = 24; break;
-                    case DbItemSetting_rdp.COLOR_32BPP: MsRdpClient7.ColorDepth = 32; break;
+                    case DbItemSettingRdp.COLOR_15BPP: MsRdpClient7.ColorDepth = 15; break;
+                    case DbItemSettingRdp.COLOR_16BPP: MsRdpClient7.ColorDepth = 16; break;
+                    case DbItemSettingRdp.COLOR_24BPP: MsRdpClient7.ColorDepth = 24; break;
+                    case DbItemSettingRdp.COLOR_32BPP: MsRdpClient7.ColorDepth = 32; break;
                     default: MsRdpClient7.ColorDepth = 32; break;
                 }
                 //音频
-                MsRdpClient7.AdvancedSettings6.AudioRedirectionMode = (uint)finalRemote.AudioRedirectionMode - 1;
+                MsRdpClient7.AdvancedSettings6.AudioRedirectionMode = (uint)lastSettingRdp.AudioRedirectionMode - 1;
                 //组合键
-                MsRdpClient7.SecuredSettings2.KeyboardHookMode = finalRemote.KeyboardHookMode - 1;
+                MsRdpClient7.SecuredSettings2.KeyboardHookMode = lastSettingRdp.KeyboardHookMode - 1;
                 //本地资源
-                MsRdpClient7.AdvancedSettings2.RedirectPrinters = finalRemote.RedirectionPrintf.Value ? true : false;//打印机
-                MsRdpClient7.AdvancedSettings6.RedirectClipboard = finalRemote.RedirectionClipboard.Value ? true : false;//剪贴板重定向
-                MsRdpClient7.AdvancedSettings3.RedirectSmartCards = finalRemote.RedirectionsMartcard.Value ? true : false;//智能卡重定向
-                MsRdpClient7.AdvancedSettings3.RedirectPorts = finalRemote.RedirectionsPort.Value ? true : false;//端口重定向
-                MsRdpClient7.AdvancedSettings3.RedirectDrives = finalRemote.RedirectionsDriver.Value ? true : false;//驱动器重定向
-                                                                                                                    //MsRdpClient.AdvancedSettings6.RedirectDevices = finalRemote.RedirectionsVideo.Value ? true : false;// 视频设备重定向
+                MsRdpClient7.AdvancedSettings2.RedirectPrinters = lastSettingRdp.RedirectionPrintf.Value ? true : false;//打印机
+                MsRdpClient7.AdvancedSettings6.RedirectClipboard = lastSettingRdp.RedirectionClipboard.Value ? true : false;//剪贴板重定向
+                MsRdpClient7.AdvancedSettings3.RedirectSmartCards = lastSettingRdp.RedirectionsMartcard.Value ? true : false;//智能卡重定向
+                MsRdpClient7.AdvancedSettings3.RedirectPorts = lastSettingRdp.RedirectionsPort.Value ? true : false;//端口重定向
+                MsRdpClient7.AdvancedSettings3.RedirectDrives = lastSettingRdp.RedirectionsDriver.Value ? true : false;//驱动器重定向
+                                                                                                                    
 
                 MsRdpClient7.AdvancedSettings4.ConnectionBarShowMinimizeButton = false;//显示全部工具栏上的最小化按钮
                 MsRdpClient7.AdvancedSettings7.ConnectToAdministerServer = false;
@@ -142,9 +156,14 @@ namespace SimpleRemote.Container
                 MsRdpClient9.UserName = linkSettings.UserName;
                 MsRdpClient9.AdvancedSettings2.ClearTextPassword = linkSettings.Password;
                 MsRdpClient9.AdvancedSettings2.RDPPort = port;
-                var ocx = (IMsRdpClientNonScriptable5)MsRdpClient9.GetOcx();
-                ocx.PromptForCredentials = false;//凭据提示对话框
-                ocx.AllowPromptingForCredentials = true;//显示密码输入框
+                MsRdpClientOcx = (IMsRdpClientNonScriptable5)MsRdpClient9.GetOcx();
+                MsRdpClientOcx.PromptForCredentials = false;//凭据提示对话框
+                MsRdpClientOcx.AllowPromptingForCredentials = true;//显示密码输入框
+                MsRdpClientOcx.DisableConnectionBar = true;//禁用连接栏
+
+                //将窗口句柄设置或检索为控件显示的任何对话框的父窗口
+                var parentHwnd = CommonServices.HWNDtoRemotableHandle(new WindowInteropHelper(Window.GetWindow(this)).Handle);
+                MsRdpClientOcx.set_UIParentWindowHandle(ref parentHwnd);
 
                 MsRdpClient9.AdvancedSettings.BitmapPeristence = 1;//启用位图缓存
                 MsRdpClient9.AdvancedSettings.Compress = 1;//启用压缩
@@ -155,7 +174,7 @@ namespace SimpleRemote.Container
                 MsRdpClient9.AdvancedSettings7.EnableCredSspSupport = true;//指定是否为此连接启用凭据安全服务提供程序
 
                 //分辨率
-                if (finalItemSetting.DesktopSize.Width <= 0 || finalItemSetting.DesktopSize.Height <= 0)
+                if (lastSettingRdp.SizeIndex == DbItemSetting.DESKSIZE_AUTO)//自适应分辨率
                 {
                     Window windows = Window.GetWindow(this);
                     MsRdpClient9.DesktopWidth = (int)windows.Width - 4;
@@ -163,33 +182,34 @@ namespace SimpleRemote.Container
                 }
                 else
                 {
-                    MsRdpClient9.DesktopWidth = (int)finalItemSetting.DesktopSize.Width;
-                    MsRdpClient9.DesktopHeight = (int)finalItemSetting.DesktopSize.Height;
+                    var size = lastSettingRdp.GetDeskTopSize();
+                    MsRdpClient9.DesktopWidth = (int)size.Width;
+                    MsRdpClient9.DesktopHeight = (int)size.Height;
                 }
                 //性能选项
-                if (finalRemote.Performance == DbItemSetting_rdp.CONNECTION_TYPE_AUTO) MsRdpClient9.AdvancedSettings9.BandwidthDetection = true;//自动检查带宽
-                else MsRdpClient9.AdvancedSettings8.NetworkConnectionType = (uint)finalRemote.Performance;
+                if (lastSettingRdp.Performance == DbItemSettingRdp.CONNECTION_TYPE_AUTO) MsRdpClient9.AdvancedSettings9.BandwidthDetection = true;//自动检查带宽
+                else MsRdpClient9.AdvancedSettings8.NetworkConnectionType = (uint)lastSettingRdp.Performance;
                 //颜色深度
-                switch (finalRemote.ColorDepthMode)
+                switch (lastSettingRdp.ColorDepthMode)
                 {
-                    case DbItemSetting_rdp.COLOR_15BPP: MsRdpClient9.ColorDepth = 15; break;
-                    case DbItemSetting_rdp.COLOR_16BPP: MsRdpClient9.ColorDepth = 16; break;
-                    case DbItemSetting_rdp.COLOR_24BPP: MsRdpClient9.ColorDepth = 24; break;
-                    case DbItemSetting_rdp.COLOR_32BPP: MsRdpClient9.ColorDepth = 32; break;
+                    case DbItemSettingRdp.COLOR_15BPP: MsRdpClient9.ColorDepth = 15; break;
+                    case DbItemSettingRdp.COLOR_16BPP: MsRdpClient9.ColorDepth = 16; break;
+                    case DbItemSettingRdp.COLOR_24BPP: MsRdpClient9.ColorDepth = 24; break;
+                    case DbItemSettingRdp.COLOR_32BPP: MsRdpClient9.ColorDepth = 32; break;
                     default: MsRdpClient9.ColorDepth = 32; break;
                 }
                 //音频
-                MsRdpClient9.AdvancedSettings6.AudioRedirectionMode = (uint)finalRemote.AudioRedirectionMode - 1;
+                MsRdpClient9.AdvancedSettings6.AudioRedirectionMode = (uint)lastSettingRdp.AudioRedirectionMode - 1;
                 //录音设备
-                MsRdpClient9.AdvancedSettings8.AudioCaptureRedirectionMode = finalRemote.AudioCaptureRedirectionMode == DbItemSetting_rdp.AAUDIOCAPTURE_TRUE;
+                MsRdpClient9.AdvancedSettings8.AudioCaptureRedirectionMode = lastSettingRdp.AudioCaptureRedirectionMode == DbItemSettingRdp.AAUDIOCAPTURE_TRUE;
                 //组合键
-                MsRdpClient9.SecuredSettings2.KeyboardHookMode = finalRemote.KeyboardHookMode - 1;
+                MsRdpClient9.SecuredSettings2.KeyboardHookMode = lastSettingRdp.KeyboardHookMode - 1;
                 //重定向
-                MsRdpClient9.AdvancedSettings2.RedirectPrinters = finalRemote.RedirectionPrintf.Value ? true : false;//打印机
-                MsRdpClient9.AdvancedSettings6.RedirectClipboard = finalRemote.RedirectionClipboard.Value ? true : false;//剪贴板重定向
-                MsRdpClient9.AdvancedSettings3.RedirectSmartCards = finalRemote.RedirectionsMartcard.Value ? true : false;//智能卡重定向
-                MsRdpClient9.AdvancedSettings3.RedirectPorts = finalRemote.RedirectionsPort.Value ? true : false;//端口重定向
-                MsRdpClient9.AdvancedSettings3.RedirectDrives = finalRemote.RedirectionsDriver.Value ? true : false;//驱动器重定向
+                MsRdpClient9.AdvancedSettings2.RedirectPrinters = lastSettingRdp.RedirectionPrintf.Value ? true : false;//打印机
+                MsRdpClient9.AdvancedSettings6.RedirectClipboard = lastSettingRdp.RedirectionClipboard.Value ? true : false;//剪贴板重定向
+                MsRdpClient9.AdvancedSettings3.RedirectSmartCards = lastSettingRdp.RedirectionsMartcard.Value ? true : false;//智能卡重定向
+                MsRdpClient9.AdvancedSettings3.RedirectPorts = lastSettingRdp.RedirectionsPort.Value ? true : false;//端口重定向
+                MsRdpClient9.AdvancedSettings3.RedirectDrives = lastSettingRdp.RedirectionsDriver.Value ? true : false;//驱动器重定向
                 MsRdpClient9.AdvancedSettings4.ConnectionBarShowMinimizeButton = false;//显示全部工具栏上的最小化按钮
 
                 MsRdpClient9.Connect();
@@ -199,6 +219,10 @@ namespace SimpleRemote.Container
 
         public override void GoFullScreen(bool state)
         {
+            //将窗口句柄设置或检索为控件显示的任何对话框的父窗口
+            var parentHwnd = CommonServices.HWNDtoRemotableHandle(new WindowInteropHelper(Window.GetWindow(this)).Handle);
+            MsRdpClientOcx.set_UIParentWindowHandle(ref parentHwnd);
+
             if (MsRdpClient7 != null)
                 MsRdpClient7.FullScreen = state;
             else
@@ -229,6 +253,7 @@ namespace SimpleRemote.Container
         private void MyRdp_OnConnected(object sender, EventArgs e)
         {
             OnConnected?.Invoke();
+            User32.SetFocus(_iHWindowHwnd);
         }
         /// <summary>
         /// 远程桌面断开连接
@@ -291,14 +316,18 @@ namespace SimpleRemote.Container
         /// <summary>枚举子窗口</summary>
         private bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam)
         {
-            if (_oldRdpClientWinProc == IntPtr.Zero)
+            if (_topWindowHwnd == IntPtr.Zero)
+            {
+                _topWindowHwnd = hwnd;
                 _oldRdpClientWinProc = User32.SetWindowLongPtr(hwnd, -4, _winRdpClientProc);
+            }
             string className = new string((char)0, 255);
             User32.GetClassNameW(hwnd, className, 255);
 
             //负责处理鼠标键盘输入的窗口
             if (string.Compare(className, "IHWindowClass", true) == 0)
             {
+                _iHWindowHwnd = hwnd;
                 _oldInRdpClientWinProc = User32.SetWindowLongPtr(hwnd, -4, _winInRdpClientProc);
                 return false;
             }
@@ -326,11 +355,25 @@ namespace SimpleRemote.Container
                 User32.CallWindowProc(_oldRdpClientWinProc, hwnd, msg, wParam, lParam);
                 return 0;
             }
+            if (msg == 512)//WM_MOUSEMOVE
+            {
+                int num = lParam.ToInt32();
+                MouseMoveProc?.Invoke(CommonServices.LOWORD(num), CommonServices.HIWORD(num));
+            }
             return User32.CallWindowProc(_oldRdpClientWinProc, hwnd, msg, wParam, lParam);
         }
         /// <summary>键盘鼠标输入框窗口的消息处理</summary>
         private int WinInRdpClientProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam)
         {
+            if (msg == 512)//WM_MOUSEMOVE
+            {
+                int num = lParam.ToInt32();
+                User32.GetWindowRect(hwnd, out var chileRect);
+                User32.GetWindowRect(_topWindowHwnd, out var parentRect);
+                int x = chileRect.Left - parentRect.Left;
+                int y = chileRect.Top - parentRect.Top;
+                MouseMoveProc?.Invoke(CommonServices.LOWORD(num) + x, CommonServices.HIWORD(num) + y);
+            }
             if (msg == 513)//WM_LBUTTONDOWN
             {
                 User32.SetFocus(hwnd);

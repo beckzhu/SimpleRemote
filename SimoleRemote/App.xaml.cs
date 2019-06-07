@@ -1,4 +1,4 @@
-﻿using SimpleRemote.Bll;
+﻿using SimpleRemote.Core;
 using System;
 using System.Diagnostics;
 using System.Reflection;

@@ -1,4 +1,4 @@
-﻿using SimpleRemote.Bll;
+﻿using SimpleRemote.Core;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,7 +18,7 @@ namespace SimpleRemote.Container
         public Home_About()
         {
             InitializeComponent();
-            RichRun_Var.Text = $"版 本：{Update.LocalVersion}({Update.LocalUpdated.ToString("yyyy.MM.dd")})";
+            RichRun_Var.Text = $"版 本：{UpdateServices.LocalVersion}({UpdateServices.LocalUpdated.ToString("yyyy.MM.dd")})";
         }
         /// <summary>
         /// 在后台检查更新,当需要强制更新时才返回True
@@ -30,15 +30,15 @@ namespace SimpleRemote.Container
                 Button_Update.Content = "检查中"; Button_Update.IsEnabled = false;
                 try
                 {
-                    if (await Update.Check())
+                    if (await UpdateServices.Check())
                     {
-                        if (!Update.Force) return false;
-                        Text_Describe.Text = $"最新版本：{Update.RemoteVersion}({Update.RemoteUpdated.ToString("yyyy.MM.dd")})";
-                        var logStr = await Update.GetUpdateLog();
+                        if (!UpdateServices.Force) return false;
+                        Text_Describe.Text = $"最新版本：{UpdateServices.RemoteVersion}({UpdateServices.RemoteUpdated.ToString("yyyy.MM.dd")})";
+                        var logStr = await UpdateServices.GetUpdateLog();
                         TextBox_Log.Visibility = Visibility.Visible;
                         TextBox_Log.Text = logStr;
                         Button_Update.Content = "下载中";
-                        await Update.Download();
+                        await UpdateServices.Download();
                         Button_Update.Content = "立即更新"; Button_Update.IsEnabled = true;
                         return true;
                     }
@@ -59,14 +59,14 @@ namespace SimpleRemote.Container
                 Button_Update.Content = "检查中"; Button_Update.IsEnabled = false;
                 try
                 {
-                    if (await Update.Check())
+                    if (await UpdateServices.Check())
                     {
-                        Text_Describe.Text = $"最新版本：{Update.RemoteVersion}({Update.RemoteUpdated.ToString("yyyy.MM.dd")})";
-                        var logStr = await Update.GetUpdateLog();
+                        Text_Describe.Text = $"最新版本：{UpdateServices.RemoteVersion}({UpdateServices.RemoteUpdated.ToString("yyyy.MM.dd")})";
+                        var logStr = await UpdateServices.GetUpdateLog();
                         TextBox_Log.Visibility = Visibility.Visible;
                         TextBox_Log.Text = logStr;
                         Button_Update.Content = "下载中";
-                        await Update.Download();
+                        await UpdateServices.Download();
                         Button_Update.Content = "立即更新"; Button_Update.IsEnabled = true;
                     }
                     else
@@ -87,9 +87,9 @@ namespace SimpleRemote.Container
             {
                 try
                 {
-                    string exeFile = Path.Combine(UserSettings.AppdDataDir, "AutoUpdate.exe");
-                    File.WriteAllBytes(exeFile, Common.GetCompressResBytes("SimpleRemote.Lib.AutoUpdate.exe.Compress"));
-                    string updateFile = Path.Combine(UserSettings.AppdDataDir, "Update.zip");
+                    string exeFile = Path.Combine(UserSettings.AppDataDir, "AutoUpdate.exe");
+                    File.WriteAllBytes(exeFile, CommonServices.GetCompressResBytes("SimpleRemote.Lib.AutoUpdate.exe.Compress"));
+                    string updateFile = Path.Combine(UserSettings.AppDataDir, "Update.zip");
                     string unzipPath = AppDomain.CurrentDomain.BaseDirectory;
                     Process.Start(exeFile, $"{updateFile} {unzipPath} {Assembly.GetEntryAssembly().Location}");
                     Application.Current.MainWindow.Close();

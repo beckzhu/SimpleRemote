@@ -11,7 +11,7 @@ namespace MahApps.Metro.Controls.Dialogs
     {
         public MetroDialogSettings()
         {
-            this.OwnerCanCloseWithDialog = false;
+            this.OwnerCanCloseWithDialog = true;
 
             this.AffirmativeButtonText = "确认";
             this.NegativeButtonText = "取消";

@@ -1,4 +1,4 @@
-﻿using SimpleRemote.Bll;
+﻿using SimpleRemote.Core;
 using SimpleRemote.Container;
 using System;
 using System.Collections.Generic;
@@ -39,6 +39,7 @@ namespace SimpleRemote.Modes
     public delegate void EventConnected();
     public delegate void EventFatalError(string title, string errorText);
     public delegate void EventNonfatal(string title, string errorText);
+    public delegate void MouseMoveEvent(int x, int y);
 
     public class BaseRemoteControl:UserControl
     {
@@ -49,7 +50,7 @@ namespace SimpleRemote.Modes
         /// <summary>
         /// 连接远程服务器
         /// </summary>
-        public virtual void Connect(DbItemRemoteLink linkSettings, FinalItemSetting finalItemSetting)
+        public virtual void Connect(DbItemRemoteLink linkSettings, DbItemSetting lastSetting)
         {
             
         }
@@ -88,5 +89,9 @@ namespace SimpleRemote.Modes
         /// 全屏  成功返回True  失败返回false
         /// </summary>
         public FullScreen FullScreen;
+        /// <summary>
+        /// 鼠标移动
+        /// </summary>
+        public MouseMoveEvent MouseMoveProc;
     }
 }

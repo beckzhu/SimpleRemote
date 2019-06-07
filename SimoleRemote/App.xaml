@@ -1,40 +1,41 @@
-﻿<Application x:Class="SimpleRemote.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dragablz="clr-namespace:Dragablz"
-             xmlns:local="clr-namespace:SimpleRemote"
-             StartupUri="MainWindow.xaml">
-    
+﻿<Application
+    x:Class="SimpleRemote.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dragablz="clr-namespace:SimpleRemote.Controls.Dragablz"
+    xmlns:local="clr-namespace:SimpleRemote"
+    StartupUri="MainWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- MahApps. 资源字典。请确保所有文件名都区分大小写! -->
+                <!--  MahApps. 资源字典。请确保所有文件名都区分大小写!  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <!-- MahApps  主题资源 -->
+                <!--  MahApps  主题资源  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <!-- Dragablz 颜色定义 -->
+                <!--  Dragablz 颜色定义  -->
                 <ResourceDictionary>
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#c5cae9"/>
-                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#DD000000"/>
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3f51b5"/>
-                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#DDFFFFFF"/>
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#303f9f"/>
-                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#DDFFFFFF"/>
-                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#ffff00"/>
-                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#DD000000"/>
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#c5cae9" />
+                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#DD000000" />
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3f51b5" />
+                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#DDFFFFFF" />
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#303f9f" />
+                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#DDFFFFFF" />
+                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#ffff00" />
+                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#DD000000" />
                 </ResourceDictionary>
-                <!-- Dragablz 默认样式 -->
-                <ResourceDictionary Source="Themes/materialdesign.xaml"/>
-                <ResourceDictionary Source="Themes/Simple Styles.xaml"/>
-                <!-- Dragablz 本地样式 -->
-                <ResourceDictionary Source="Control/RemoteTreeViewItem.xaml"/>
+                <!--  Dragablz 默认样式  -->
+                <ResourceDictionary Source="Themes/materialdesign.xaml" />
+                <ResourceDictionary Source="Themes/Simple Styles.xaml" />
+                <!--  Dragablz 本地样式  -->
+                <ResourceDictionary Source="Controls/RemoteTreeViewItem.xaml" />
                 <ResourceDictionary Source="Themes/Template/HamburgerMenu.xaml" />
                 <ResourceDictionary Source="Themes/Style/HamburgerMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
+            <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
-using SimpleRemote.Bll;
+using SimpleRemote.Core;
 
 namespace SimpleRemote.Container
 {
@@ -19,14 +19,13 @@ namespace SimpleRemote.Container
             InitializeComponent();
         }
 
-        public async void Load()
+        public async void Init()
         {
-            GlobalSetting.LoadSetiing();
+            CommonServices.Init();
             Home_Items = new Home_Remote();
             Home_Setting = new Home_Setting();
             Home_About = new Home_About();
             HamburgerMenu.Content = Home_Items;
-            RemoteItems.LoadItems(Home_Items.TreeView_Item);
 
             DateTime localDateTime = DateTime.Today;
             //DateTime localDateTime = new DateTime();//测试使用 每次都检查更新
@@ -44,23 +43,18 @@ namespace SimpleRemote.Container
         private void HamburgerMenu_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
             var menuItem = e.InvokedItem as HamburgerMenuItem;
-            if (menuItem != null)
+            if (menuItem == null) return;
+            if (menuItem == PART_Remote)
             {
-                switch (menuItem.Label)
-                {
-                    case "远程桌面":
-                        HamburgerMenu.Content = Home_Items;
-                        break;
-                    case "全局设置":
-                        HamburgerMenu.Content = Home_Setting;
-                        break;
-                    case "关于":
-                        HamburgerMenu.Content = Home_About;
-                        break;
-                    default:
-                        HamburgerMenu.Content = null;
-                        break;
-                }
+                HamburgerMenu.Content = Home_Items;
+            }
+            if (menuItem == PART_Setting)
+            {
+                HamburgerMenu.Content = Home_Setting;
+            }
+            if (menuItem == PART_About)
+            {
+                HamburgerMenu.Content = Home_About;
             }
         }
 

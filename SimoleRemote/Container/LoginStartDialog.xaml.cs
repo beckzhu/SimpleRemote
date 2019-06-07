@@ -1,4 +1,4 @@
-﻿using SimpleRemote.Bll;
+﻿using SimpleRemote.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,7 +37,7 @@ namespace SimpleRemote.Container
                 TextBlock_Info.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                 TextBlock_Info.Text = "密码不能为空"; return;
             }
-            if (!Database.IsPassword(PasswordBox.Password))
+            if (!DatabaseServices.IsPassword(PasswordBox.Password))
             {
                 TextBlock_Info.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                 TextBlock_Info.Text = "密码不正确"; return;

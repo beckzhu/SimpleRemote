@@ -1,9 +1,14 @@
-﻿<Window x:Class="SimpleRemote.Container.FullScreenWindow"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:local="clr-namespace:SimpleRemote.Container"
-                    Left="0" Top="0" WindowStyle="None" ResizeMode="NoResize" WindowState="Normal"
-                    Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}">      
-</Window>
+﻿<Window
+    x:Class="SimpleRemote.Container.FullScreenWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimpleRemote.Container"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+    Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+    Left="0"
+    ResizeMode="NoResize"
+    Top="0"
+    WindowState="Normal"
+    WindowStyle="None" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed" />

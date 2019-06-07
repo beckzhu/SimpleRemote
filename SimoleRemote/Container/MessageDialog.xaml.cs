@@ -1,4 +1,4 @@
-﻿using SimpleRemote.DllLibrary;
+﻿using SimpleRemote.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

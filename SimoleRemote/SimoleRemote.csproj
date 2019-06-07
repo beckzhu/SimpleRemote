@@ -115,23 +115,180 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Bll\Common.cs" />
-    <Compile Include="Bll\FinalItemSetting_telnet.cs" />
-    <Compile Include="Bll\FinalItemSetting_ssh.cs" />
-    <Compile Include="Bll\NumCalculation.cs" />
-    <Compile Include="Bll\Update.cs" />
-    <Compile Include="Bll\UserSettings.cs" />
+    <Compile Include="Container\FullScreenConnectBar.xaml.cs">
+      <DependentUpon>FullScreenConnectBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Container\RemoteSetting\DefaultButton.xaml.cs">
+      <DependentUpon>DefaultButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Container\RemoteSetting\SettingControl.cs" />
+    <Compile Include="Container\RemoteSetting\SettingTelnet.xaml.cs">
+      <DependentUpon>SettingTelnet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Container\RemoteSetting\SettingSsh.xaml.cs">
+      <DependentUpon>SettingSsh.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Container\RemoteSetting\SettingPutty.xaml.cs">
+      <DependentUpon>SettingPutty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Container\RemoteSetting\SettingUtility.xaml.cs">
+      <DependentUpon>SettingUtility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dragablz\CanvasOrganiser.cs" />
+    <Compile Include="Controls\Dragablz\ContainerCustomisations.cs" />
+    <Compile Include="Controls\Dragablz\Converters\BooleanAndToVisibilityConverter.cs" />
+    <Compile Include="Controls\Dragablz\Converters\EqualityToBooleanConverter.cs" />
+    <Compile Include="Controls\Dragablz\Converters\EqualityToVisibilityConverter.cs" />
+    <Compile Include="Controls\Dragablz\Converters\ShowDefaultCloseButtonConverter.cs" />
+    <Compile Include="Controls\Dragablz\Core\CollectionTeaser.cs" />
+    <Compile Include="Controls\Dragablz\Core\Extensions.cs" />
+    <Compile Include="Controls\Dragablz\Core\FuncComparer.cs" />
+    <Compile Include="Controls\Dragablz\Core\HitTest.cs" />
+    <Compile Include="Controls\Dragablz\Core\InterTabTransfer.cs" />
+    <Compile Include="Controls\Dragablz\Core\MultiComparer.cs" />
+    <Compile Include="Controls\Dragablz\Core\Native.cs" />
+    <Compile Include="Controls\Dragablz\Core\SystemCommand.cs" />
+    <Compile Include="Controls\Dragablz\Core\TabHeaderDragStartInformation.cs" />
+    <Compile Include="Controls\Dragablz\Core\WindowMessage.cs" />
+    <Compile Include="Controls\Dragablz\DefaultInterLayoutClient.cs" />
+    <Compile Include="Controls\Dragablz\DefaultInterTabClient.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\Branch.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\BranchAccessor.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\BranchItem.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\BranchResult.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\CouldBeHeaderedStyleSelector.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\DropZone.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\DropZoneLocation.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\Extensions.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\Finder.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\FloatingItemSnapShot.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\FloatRequestedEvent.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\FloatTransfer.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\Layout.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\LayoutAccessor.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\LocationReport.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\LocationReportBuilder.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\LocationReportException.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\LocationSnapShot.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\Tiler.cs" />
+    <Compile Include="Controls\Dragablz\Dockablz\TilerCalculator.cs" />
+    <Compile Include="Controls\Dragablz\DragablzColors.cs" />
+    <Compile Include="Controls\Dragablz\DragablzDragCompletedEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\DragablzDragDeltaEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\DragablzDragStartedEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\DragablzIcon.cs" />
+    <Compile Include="Controls\Dragablz\DragablzItem.cs" />
+    <Compile Include="Controls\Dragablz\DragablzItemEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\DragablzItemsControl.cs" />
+    <Compile Include="Controls\Dragablz\DragablzWindow.cs" />
+    <Compile Include="Controls\Dragablz\EmptyHeaderSizingHint.cs" />
+    <Compile Include="Controls\Dragablz\HeaderedDragablzItem.cs" />
+    <Compile Include="Controls\Dragablz\HeaderedItemViewModel.cs" />
+    <Compile Include="Controls\Dragablz\HorizontalOrganiser.cs" />
+    <Compile Include="Controls\Dragablz\HorizontalPositionMonitor.cs" />
+    <Compile Include="Controls\Dragablz\IInterLayoutClient.cs" />
+    <Compile Include="Controls\Dragablz\IInterTabClient.cs" />
+    <Compile Include="Controls\Dragablz\IItemsOrganiser.cs" />
+    <Compile Include="Controls\Dragablz\IManualInterTabClient.cs" />
+    <Compile Include="Controls\Dragablz\INewTabHost.cs" />
+    <Compile Include="Controls\Dragablz\InterTabController.cs" />
+    <Compile Include="Controls\Dragablz\ItemActionCallbackArgs.cs" />
+    <Compile Include="Controls\Dragablz\LocationChangedEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\LocationHint.cs" />
+    <Compile Include="Controls\Dragablz\MoveItemRequest.cs" />
+    <Compile Include="Controls\Dragablz\NewTabHost.cs" />
+    <Compile Include="Controls\Dragablz\OrderChangedEventArgs.cs" />
+    <Compile Include="Controls\Dragablz\PositionMonitor.cs" />
+    <Compile Include="Controls\Dragablz\Referenceless\AnonymousDisposable.cs" />
+    <Compile Include="Controls\Dragablz\Referenceless\DefaultDisposable.cs" />
+    <Compile Include="Controls\Dragablz\Referenceless\Disposable.cs" />
+    <Compile Include="Controls\Dragablz\Referenceless\ICancelable.cs" />
+    <Compile Include="Controls\Dragablz\Referenceless\SerialDisposable.cs" />
+    <Compile Include="Controls\Dragablz\StackOrganiser.cs" />
+    <Compile Include="Controls\Dragablz\StackPositionMonitor.cs" />
+    <Compile Include="Controls\Dragablz\StoryboardCompletionListener.cs" />
+    <Compile Include="Controls\Dragablz\TabablzControl.cs" />
+    <Compile Include="Controls\Dragablz\TabablzHeaderSizeConverter.cs" />
+    <Compile Include="Controls\Dragablz\TabablzItemStyleSelector.cs" />
+    <Compile Include="Controls\Dragablz\TabEmptiedResponse.cs" />
+    <Compile Include="Controls\Dragablz\Themes\BrushToRadialGradientBrushConverter.cs" />
+    <Compile Include="Controls\Dragablz\Themes\MaterialDesignAssist.cs" />
+    <Compile Include="Controls\Dragablz\Themes\Ripple.cs" />
+    <Compile Include="Controls\Dragablz\Themes\RippleAssist.cs" />
+    <Compile Include="Controls\Dragablz\Themes\SystemCommandIcon.cs" />
+    <Compile Include="Controls\Dragablz\Trapezoid.cs" />
+    <Compile Include="Controls\Dragablz\VerticalOrganiser.cs" />
+    <Compile Include="Controls\Dragablz\VerticalPositionMonitor.cs" />
+    <Compile Include="Controls\Notifications\ContentLocation.cs" />
+    <Compile Include="Controls\Notifications\Controls\NotificationMessage.cs" />
+    <Compile Include="Controls\Notifications\Controls\NotificationMessageButton.cs" />
+    <Compile Include="Controls\Notifications\Controls\NotificationMessageContainer.cs" />
+    <Compile Include="Controls\Notifications\INotificationAnimation.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessage.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageButton.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageFactory.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageManager.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageBuilder.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageBuilderLinq.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageFactory.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManager.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManagerEventArgs.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManagerEventHandler.cs" />
+    <Compile Include="Controls\NotifyIconWpf\BalloonIcon.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\BalloonFlags.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\IconDataMembers.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\IconState.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\MouseEvent.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\NotifyCommand.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\NotifyIconData.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\NotifyIconVersion.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\Point.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\SystemInfo.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\TrayInfo.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\WinApi.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\WindowClass.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Interop\WindowMessageSink.cs" />
+    <Compile Include="Controls\NotifyIconWpf\PopupActivationMode.cs" />
+    <Compile Include="Controls\NotifyIconWpf\RoutedEventHelper.cs" />
+    <Compile Include="Controls\NotifyIconWpf\TaskbarIcon.cs" />
+    <Compile Include="Controls\NotifyIconWpf\TaskbarIcon.Declarations.cs" />
+    <Compile Include="Controls\NotifyIconWpf\Util.cs" />
+    <Compile Include="Controls\RemoteTabItem.cs" />
+    <Compile Include="Controls\RemoteTreeViewItem.cs" />
+    <Compile Include="Controls\WpfDragDrop\DefaultDragHandler.cs" />
+    <Compile Include="Controls\WpfDragDrop\DefaultDropHandler.cs" />
+    <Compile Include="Controls\WpfDragDrop\DragAdorner.cs" />
+    <Compile Include="Controls\WpfDragDrop\DragDrop.cs" />
+    <Compile Include="Controls\WpfDragDrop\DragDrop.Properties.cs" />
+    <Compile Include="Controls\WpfDragDrop\DragInfo.cs" />
+    <Compile Include="Controls\WpfDragDrop\DropInfo.cs" />
+    <Compile Include="Controls\WpfDragDrop\DropTargetAdorner.cs" />
+    <Compile Include="Controls\WpfDragDrop\DropTargetAdorners.cs" />
+    <Compile Include="Controls\WpfDragDrop\DropTargetHighlightAdorner.cs" />
+    <Compile Include="Controls\WpfDragDrop\DropTargetInsertionAdorner.cs" />
+    <Compile Include="Controls\WpfDragDrop\Icons\IconFactory.cs" />
+    <Compile Include="Controls\WpfDragDrop\IDragInfo.cs" />
+    <Compile Include="Controls\WpfDragDrop\IDragSource.cs" />
+    <Compile Include="Controls\WpfDragDrop\IDropInfo.cs" />
+    <Compile Include="Controls\WpfDragDrop\IDropTarget.cs" />
+    <Compile Include="Controls\WpfDragDrop\ScrollingMode.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\DpiHelper.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\DragDropExtensions.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\HitTestUtilities.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\ItemsControlExtensions.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\RootElementFinder.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\TreeViewItemExtensions.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\TypeUtilities.cs" />
+    <Compile Include="Controls\WpfDragDrop\Utilities\VisualTreeExtensions.cs" />
+    <Compile Include="Core\CommonServices.cs" />
+    <Compile Include="Core\RemoteTreeDropTarget.cs" />
+    <Compile Include="Core\UpdateServices.cs" />
+    <Compile Include="Core\UserSettings.cs" />
     <Compile Include="Container\FullScreenWindow.xaml.cs">
       <DependentUpon>FullScreenWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Container\Home_About.xaml.cs">
       <DependentUpon>Home_About.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Container\Home_Remote_ssh.xaml.cs">
-      <DependentUpon>Home_Remote_ssh.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Container\Home_Remote_telnet.xaml.cs">
-      <DependentUpon>Home_Remote_telnet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Container\LoginStartDialog.xaml.cs">
       <DependentUpon>LoginStartDialog.xaml</DependentUpon>
@@ -148,38 +305,21 @@
     <Compile Include="Container\RemoteControl_telnet.xaml.cs">
       <DependentUpon>RemoteControl_telnet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\NotifyIconWpf\BalloonIcon.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\BalloonFlags.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\IconDataMembers.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\IconState.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\MouseEvent.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\NotifyCommand.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\NotifyIconData.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\NotifyIconVersion.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\Point.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\SystemInfo.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\TrayInfo.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\WinApi.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\WindowClass.cs" />
-    <Compile Include="Control\NotifyIconWpf\Interop\WindowMessageSink.cs" />
-    <Compile Include="Control\NotifyIconWpf\PopupActivationMode.cs" />
-    <Compile Include="Control\NotifyIconWpf\RoutedEventHelper.cs" />
-    <Compile Include="Control\NotifyIconWpf\TaskbarIcon.cs" />
-    <Compile Include="Control\NotifyIconWpf\TaskbarIcon.Declarations.cs" />
-    <Compile Include="Control\NotifyIconWpf\Util.cs" />
-    <Compile Include="Control\RemoteTabItem.cs" />
-    <Compile Include="DllLibrary\Putty.cs" />
+    <Compile Include="Modes\DataStoreLocation.cs" />
+    <Compile Include="Modes\DbItemSettingPutty.cs" />
+    <Compile Include="Modes\DbRemoteTree.cs" />
+    <Compile Include="Native\Kernel32.cs" />
+    <Compile Include="Native\Putty.cs" />
     <Compile Include="Modes\BaseRemoteControl.cs" />
-    <Compile Include="Modes\DbItemSetting_ssh.cs" />
-    <Compile Include="Modes\DbItemSetting_telnet.cs" />
+    <Compile Include="Modes\DbItemSettingSsh.cs" />
+    <Compile Include="Modes\DbItemSettingTelnet.cs" />
     <Compile Include="Modes\DbPuttyColor.cs" />
     <Compile Include="Modes\DbSshHostKeys.cs" />
     <Compile Include="Modes\IRemoteControl.cs" />
     <Compile Include="Modes\DbItemDirectory.cs" />
-    <Compile Include="Modes\DbItemSetting_rdp.cs" />
+    <Compile Include="Modes\DbItemSettingRdp.cs" />
     <Compile Include="Modes\DbItemRemoteLink.cs" />
     <Compile Include="Modes\DbItemSetting.cs" />
-    <Compile Include="Bll\GlobalSetting.cs" />
     <Compile Include="Container\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -192,67 +332,15 @@
     <Compile Include="Container\RemoteTabControl.xaml.cs">
       <DependentUpon>RemoteTabControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Container\Home_Remote_rdp.xaml.cs">
-      <DependentUpon>Home_Remote_rdp.xaml</DependentUpon>
+    <Compile Include="Container\RemoteSetting\SettingRdp.xaml.cs">
+      <DependentUpon>SettingRdp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Container\RemoteWinControl.xaml.cs">
       <DependentUpon>RemoteWinControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\RemoteTreeViewItem.cs" />
-    <Compile Include="Bll\RemoteItems.cs" />
-    <Compile Include="Bll\Database.cs" />
-    <Compile Include="Dragablz\CanvasOrganiser.cs" />
-    <Compile Include="Dragablz\ContainerCustomisations.cs" />
-    <Compile Include="Dragablz\DefaultInterLayoutClient.cs" />
-    <Compile Include="Dragablz\DefaultInterTabClient.cs" />
-    <Compile Include="Dragablz\DragablzColors.cs" />
-    <Compile Include="Dragablz\DragablzDragCompletedEventArgs.cs" />
-    <Compile Include="Dragablz\DragablzDragDeltaEventArgs.cs" />
-    <Compile Include="Dragablz\DragablzDragStartedEventArgs.cs" />
-    <Compile Include="Dragablz\DragablzIcon.cs" />
-    <Compile Include="Dragablz\DragablzItem.cs" />
-    <Compile Include="Dragablz\DragablzItemEventArgs.cs" />
-    <Compile Include="Dragablz\DragablzItemsControl.cs" />
-    <Compile Include="Dragablz\DragablzWindow.cs" />
-    <Compile Include="Dragablz\EmptyHeaderSizingHint.cs" />
-    <Compile Include="Dragablz\HeaderedDragablzItem.cs" />
-    <Compile Include="Dragablz\HeaderedItemViewModel.cs" />
-    <Compile Include="Dragablz\HorizontalOrganiser.cs" />
-    <Compile Include="Dragablz\HorizontalPositionMonitor.cs" />
-    <Compile Include="Dragablz\IInterLayoutClient.cs" />
-    <Compile Include="Dragablz\IInterTabClient.cs" />
-    <Compile Include="Dragablz\IItemsOrganiser.cs" />
-    <Compile Include="Dragablz\IManualInterTabClient.cs" />
-    <Compile Include="Dragablz\INewTabHost.cs" />
-    <Compile Include="Dragablz\InterTabController.cs" />
-    <Compile Include="Dragablz\ItemActionCallbackArgs.cs" />
-    <Compile Include="Dragablz\LocationChangedEventArgs.cs" />
-    <Compile Include="Dragablz\LocationHint.cs" />
-    <Compile Include="Dragablz\MoveItemRequest.cs" />
-    <Compile Include="Dragablz\NewTabHost.cs" />
-    <Compile Include="Dragablz\OrderChangedEventArgs.cs" />
-    <Compile Include="Dragablz\PositionMonitor.cs" />
-    <Compile Include="Dragablz\Referenceless\AnonymousDisposable.cs" />
-    <Compile Include="Dragablz\Referenceless\DefaultDisposable.cs" />
-    <Compile Include="Dragablz\Referenceless\Disposable.cs" />
-    <Compile Include="Dragablz\Referenceless\ICancelable.cs" />
-    <Compile Include="Dragablz\Referenceless\SerialDisposable.cs" />
-    <Compile Include="Dragablz\StackOrganiser.cs" />
-    <Compile Include="Dragablz\StackPositionMonitor.cs" />
-    <Compile Include="Dragablz\StoryboardCompletionListener.cs" />
-    <Compile Include="Dragablz\TabablzControl.cs" />
-    <Compile Include="Dragablz\TabablzHeaderSizeConverter.cs" />
-    <Compile Include="Dragablz\TabablzItemStyleSelector.cs" />
-    <Compile Include="Dragablz\TabEmptiedResponse.cs" />
-    <Compile Include="Dragablz\Themes\BrushToRadialGradientBrushConverter.cs" />
-    <Compile Include="Dragablz\Themes\MaterialDesignAssist.cs" />
-    <Compile Include="Dragablz\Themes\Ripple.cs" />
-    <Compile Include="Dragablz\Themes\RippleAssist.cs" />
-    <Compile Include="Dragablz\Themes\SystemCommandIcon.cs" />
-    <Compile Include="Dragablz\Trapezoid.cs" />
-    <Compile Include="Dragablz\VerticalOrganiser.cs" />
-    <Compile Include="Dragablz\VerticalPositionMonitor.cs" />
-    <Compile Include="DllLibrary\User32.cs" />
+    <Compile Include="Core\RemoteItems.cs" />
+    <Compile Include="Core\DatabaseServices.cs" />
+    <Compile Include="Native\User32.cs" />
     <Page Include="Container\FullScreenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,13 +353,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Container\Home_Remote_ssh.xaml">
+    <Page Include="Container\RemoteSetting\DefaultButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Container\RemoteSetting\SettingTelnet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Container\Home_Remote_telnet.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Container\RemoteSetting\SettingSsh.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Container\RemoteSetting\SettingPutty.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Container\RemoteSetting\SettingUtility.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Container\Home_Setting.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +389,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Container\FullScreenConnectBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Container\RemoteControl_ssh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -301,7 +405,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Container\Home_Remote_rdp.xaml">
+    <Page Include="Container\RemoteSetting\SettingRdp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +416,18 @@
     <Page Include="Container\RemoteWinControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dragablz\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Notifications\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\RemoteTreeViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Style\HamburgerMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -329,49 +445,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Dragablz\Converters\BooleanAndToVisibilityConverter.cs" />
-    <Compile Include="Dragablz\Converters\EqualityToBooleanConverter.cs" />
-    <Compile Include="Dragablz\Converters\EqualityToVisibilityConverter.cs" />
-    <Compile Include="Dragablz\Converters\ShowDefaultCloseButtonConverter.cs" />
-    <Compile Include="Dragablz\Core\CollectionTeaser.cs" />
-    <Compile Include="Dragablz\Core\Extensions.cs" />
-    <Compile Include="Dragablz\Core\FuncComparer.cs" />
-    <Compile Include="Dragablz\Core\HitTest.cs" />
-    <Compile Include="Dragablz\Core\InterTabTransfer.cs" />
-    <Compile Include="Dragablz\Core\MultiComparer.cs" />
-    <Compile Include="Dragablz\Core\Native.cs" />
-    <Compile Include="Dragablz\Core\SystemCommand.cs" />
-    <Compile Include="Dragablz\Core\TabHeaderDragStartInformation.cs" />
-    <Compile Include="Dragablz\Core\WindowMessage.cs" />
-    <Compile Include="Dragablz\Dockablz\Branch.cs" />
-    <Compile Include="Dragablz\Dockablz\BranchAccessor.cs" />
-    <Compile Include="Dragablz\Dockablz\BranchItem.cs" />
-    <Compile Include="Dragablz\Dockablz\BranchResult.cs" />
-    <Compile Include="Dragablz\Dockablz\CouldBeHeaderedStyleSelector.cs" />
-    <Compile Include="Dragablz\Dockablz\DropZone.cs" />
-    <Compile Include="Dragablz\Dockablz\DropZoneLocation.cs" />
-    <Compile Include="Dragablz\Dockablz\Extensions.cs" />
-    <Compile Include="Dragablz\Dockablz\Finder.cs" />
-    <Compile Include="Dragablz\Dockablz\FloatingItemSnapShot.cs" />
-    <Compile Include="Dragablz\Dockablz\FloatRequestedEvent.cs" />
-    <Compile Include="Dragablz\Dockablz\FloatTransfer.cs" />
-    <Compile Include="Dragablz\Dockablz\Layout.cs" />
-    <Compile Include="Dragablz\Dockablz\LayoutAccessor.cs" />
-    <Compile Include="Dragablz\Dockablz\LocationReport.cs" />
-    <Compile Include="Dragablz\Dockablz\LocationReportBuilder.cs" />
-    <Compile Include="Dragablz\Dockablz\LocationReportException.cs" />
-    <Compile Include="Dragablz\Dockablz\LocationSnapShot.cs" />
-    <Compile Include="Dragablz\Dockablz\Tiler.cs" />
-    <Compile Include="Dragablz\Dockablz\TilerCalculator.cs" />
-    <Compile Include="Bll\ExMethod.cs" />
+    <Compile Include="Core\CommonExtended.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Dragablz\Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -384,17 +462,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\RemoteTreeViewItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bll\Display.cs" />
-    <Compile Include="Bll\FinalItemSetting.cs" />
-    <Compile Include="Bll\FinalItemSetting_rdp.cs" />
     <Compile Include="Modes\RemoteType.cs" />
-    <Compile Include="DllLibrary\Gdi32.cs" />
+    <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -412,12 +483,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Control\NotifyIconWpf\Diagrams\TaskbarIcon Overview.cd" />
     <EmbeddedResource Include="Lib\putty.dll.Compress" />
     <EmbeddedResource Include="Lib\putty64.dll.Compress" />
     <EmbeddedResource Include="Lib\AutoUpdate.exe.Compress" />
     <EmbeddedResource Include="Lib\AxInterop.MSTSCLib.dll.Compress" />
     <EmbeddedResource Include="Lib\Interop.MSTSCLib.dll.Compress" />
+    <None Include="Controls\NotifyIconWpf\Diagrams\TaskbarIcon Overview.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -473,6 +544,10 @@
     <Resource Include="Icon\Logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Controls\WpfDragDrop\Icons\EffectCopy.png" />
+    <Resource Include="Controls\WpfDragDrop\Icons\EffectLink.png" />
+    <Resource Include="Controls\WpfDragDrop\Icons\EffectMove.png" />
+    <Resource Include="Controls\WpfDragDrop\Icons\EffectNone.png" />
     <Content Include="Lib\MemoryModule.dll" />
     <None Include="Update.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
